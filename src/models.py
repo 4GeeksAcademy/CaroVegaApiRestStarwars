@@ -34,5 +34,5 @@ class Character(db.Model):
             "name": self.name,
             "gender":self.gender,
             "Birth":self.Birth_Year
-            # do not serialize the password, its a security breach
+            
         }
