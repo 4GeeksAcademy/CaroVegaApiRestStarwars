@@ -17,7 +17,7 @@ class User(db.Model):
             "email": self.email,
             # do not serialize the password, its a security breach
         }
-class Character(db.Model):
+class People (db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False )
     gender = db.Column(db.String(100))
@@ -26,7 +26,7 @@ class Character(db.Model):
     Birth_Year = db.Column(db.String(100))
 
     def __repr__(self):
-        return '<Character %r>' % self.name
+        return '<People %r>' % self.name
 
     def serialize(self):
         return {
