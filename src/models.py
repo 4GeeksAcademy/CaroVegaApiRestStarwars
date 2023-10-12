@@ -17,3 +17,22 @@ class User(db.Model):
             "email": self.email,
             # do not serialize the password, its a security breach
         }
+class Character(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False )
+    gender = db.Column(db.String(100))
+    skin_color = db.Column(db.String(100))
+    eye_color = db.Column(db.String(100))
+    Birth_Year = db.Column(db.String(100))
+
+    def __repr__(self):
+        return '<Character %r>' % self.name
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "gender":self.gender,
+            "Birth":self.Birth_Year
+            # do not serialize the password, its a security breach
+        }
