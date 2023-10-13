@@ -58,7 +58,32 @@ def get_character(people_id):
     result = character.serialize()
     return jsonify(result), 200
 
+@app.route('/people', methods=['POST'])
+def insert_character():
+    data_character = request.json
+    new_character = People(  name=data_character['name'],
+    gender=data_character['gender'],
+    skin_color=data_character['skin_color'],
+    eye_color=data_character['eye_color'],
+    Birth_Year=data_character['Birth_Year']
+    )
+    db.session.add(new_character)
+    db.session.commit()
+    return jsonify({"msg":"personaje agregado"}), 201
 
+@app.route('/people', methods=['DELETE'])
+def delete_character():
+    data = request.json
+    if 'id' not in data:
+        return jsonify({"error":"el campo 'id' es obligatorio"}),400
+    id_character = data['id']
+    delete_character = People.query.filter_by(id = id_character).first()
+    if delete_character is not None:
+        db.session.delete(delete_character)
+        db.session.commit()
+        return jsonify({"msg":"personaje eliminado"}), 201
+    else:
+        return jsonify({"error":"Personaje no encontrado"}),404
 
 #final codigo
 
