@@ -34,5 +34,4 @@ class People (db.Model):
             "name": self.name,
             "gender":self.gender,
             "Birth":self.Birth_Year
-            
         }
