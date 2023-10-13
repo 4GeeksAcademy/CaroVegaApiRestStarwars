@@ -48,12 +48,17 @@ def handle_hello():
 
 @app.route('/people', methods=['GET'])
 def get_characters():
-    print('hola')
     all_people = People.query.all()
     results = list(map(lambda item: item.serialize(),all_people))
-    print (results)
-
     return jsonify(results), 200
+
+@app.route('/people/<int:people_id>', methods=['GET'])
+def get_character(people_id):
+    character = People.query.filter_by(id=people_id).first()
+    result = character.serialize()
+    return jsonify(result), 200
+
+
 
 #final codigo
 
