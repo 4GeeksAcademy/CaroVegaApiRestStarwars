@@ -56,11 +56,15 @@ def get_character(people_id):
     result = character.serialize()
     return jsonify(result), 200
 
-@app.route('/user<int:user_id>/favorites', methods=['GET'])
-def get_favorites(user_id):
-    allfavorites= UserFavoritePeople.query.filter_by(id=user_id).first()
-    print(allfavorites)
-    return jsonify({"msg": "favoritousuario"}), 200
+@app.route('/users/<int:user_id>/favorite/people/<int:people_id>', methods=['POST'])
+def insert_favorites_people(user_id, people_id):
+    print(user_id)
+    print(people_id)
+    favorites_people=UserFavoritePeople( user_id= user_id, people_id=people_id)
+    
+    return jsonify({"msg": "favoritoadicionado"}), 200
+
+
 
 @app.route('/people', methods=['POST'])
 def insert_character():
