@@ -9,6 +9,7 @@ from flask_cors import CORS
 from utils import APIException, generate_sitemap
 from admin import setup_admin
 from models import db, User, People, UserFavoritePeople
+from flask_admin.contrib.sqla import ModelView
 #from models import Person
 
 app = Flask(__name__)
@@ -88,6 +89,17 @@ def delete_character():
     else:
         return jsonify({"error":"Personaje no encontrado"}),404
 
+def user_profile_link(user_id):
+    return url_for('admin.user_profile', user_id=user_id)
+
+class UserAdminView(ModelView):
+     column_formatters = {
+        'username': lambda v, c, m, p: f'<a href="{user_profile_link(m.id)}">{m.username}</a>'}
+
+@app.route('/admin/user-profile/<int:user_id>')
+def admin_user_profile(user_id):
+    user = User.query.get(user_id)
+    return f'Perfil del usuario: {user.username}'  # Personaliza la vista según tus necesidades
 #final codigo
 
 # this only runs if `$ python src/app.py` is executed
